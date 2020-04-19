@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="content">
+        {% for cours in courses %}
+            <div class="splash">
+                <div class="pure-g-r">
+                    <div class="pure-u-1">
+                        <div class="l-box splash-text">
+                            <h1 class="splash-head">
+                                {{ cours.name }}
+                            </h1>
+                            <h2 class="splash-subhead">
+                                {{ cours.description }}
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="splash">
+                <div class="pure-g-r">
+                    <div class="pure-u-1">
+                        <div class="l-box splash-text">
+                            <h1 class="splash-head">
+                                Nenhum curso encontrado
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="pure-g-r content-ribbon">
+            <div class="pure-u-1">
+            <h3>Tire sua dúvida sobre o curso</h3>
+                <form class="pure-form pure-form-aligned" method="post">
+                    {% csrf_token %}
+                    <fieldset>
+                        {% for field in form %}
+                            <div class="pure-control-group">
+                                {{ field.label_tag }}
+                                {{ field }}
+                                <ul class="errorlist">
+                                    {% for error in field.erros %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    <div class="pure-controls">
+                        <button type="submit" class="pure-button pure-button-primary">Enviar</button>
+                    </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
